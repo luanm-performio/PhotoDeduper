@@ -25,6 +25,8 @@ _Consider the the following points in formulating your solution:_
 * Some of these may have only their extension changed.
 
 
-Your code should be of production quality, and demonstrate the idioms of your chosen language. 
-
-Please submit a zipped git repository, with a readme.
+## Run
+```shell
+./gradlew build
+java -jar ./app/build/libs/app.jar <folder path>
+```
