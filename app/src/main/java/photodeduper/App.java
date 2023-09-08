@@ -12,8 +12,8 @@ public class App {
 
         final Consumer<String> logConsumer = System.out::println;
         final PhotoDeduper photoDeduper = new PhotoDeduper(args[0], logConsumer);
-        final PathWalker pathWalker = new PathWalker(photoDeduper::add, FileChecksum.md5());
+        final FileChecksumVisitor fileChecksumVisitor = new FileChecksumVisitor(photoDeduper::add, FileChecksum.md5());
 
-        photoDeduper.dedupe(pathWalker);
+        photoDeduper.dedupe(fileChecksumVisitor);
     }
 }

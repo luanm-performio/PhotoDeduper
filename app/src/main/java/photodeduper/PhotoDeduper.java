@@ -32,11 +32,11 @@ public class PhotoDeduper {
         this.allFileMetas = new HashMap<>();
     }
 
-    public void dedupe(final PathWalker pathWalker) {
+    public void dedupe(final FileChecksumVisitor fileChecksumVisitor) {
         logConsumer.accept("Checking " + folderPath);
 
         try {
-            Files.walkFileTree(folderPath, pathWalker);
+            Files.walkFileTree(folderPath, fileChecksumVisitor);
         } catch (IOException e) {
             throw new PhotoDeduperException(e.getMessage());
         }

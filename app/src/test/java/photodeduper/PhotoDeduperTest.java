@@ -18,8 +18,8 @@ class PhotoDeduperTest {
         final String folderPath = "src/test/resources/test_images";
 
         final PhotoDeduper photoDeduper = new PhotoDeduper(folderPath, logMessages::add);
-        final PathWalker pathWalker = new PathWalker(photoDeduper::add, FileChecksum.md5());
-        photoDeduper.dedupe(pathWalker);
+        final FileChecksumVisitor fileChecksumVisitor = new FileChecksumVisitor(photoDeduper::add, FileChecksum.md5());
+        photoDeduper.dedupe(fileChecksumVisitor);
 
         assertThat(logMessages).containsExactly(
                 "Checking " + folderPath,
@@ -35,8 +35,8 @@ class PhotoDeduperTest {
         final String folderPath = "src/test/resources/test_images/camping DELETE ME";
 
         final PhotoDeduper photoDeduper = new PhotoDeduper(folderPath, logMessages::add);
-        final PathWalker pathWalker = new PathWalker(photoDeduper::add, FileChecksum.md5());
-        photoDeduper.dedupe(pathWalker);
+        final FileChecksumVisitor fileChecksumVisitor = new FileChecksumVisitor(photoDeduper::add, FileChecksum.md5());
+        photoDeduper.dedupe(fileChecksumVisitor);
 
         assertThat(logMessages).containsExactly("Checking " + folderPath);
     }
@@ -56,9 +56,9 @@ class PhotoDeduperTest {
         final String folderPath = "src/test/resources/test_images/camping DELETE ME";
 
         final PhotoDeduper photoDeduper = new PhotoDeduper(folderPath, logMessages::add);
-        final PathWalker pathWalker = new PathWalker(photoDeduper::add, (file) -> {throw new RuntimeException("Boom!");});
+        final FileChecksumVisitor fileChecksumVisitor = new FileChecksumVisitor(photoDeduper::add, (file) -> {throw new RuntimeException("Boom!");});
 
-        assertThatThrownBy(() -> photoDeduper.dedupe(pathWalker))
+        assertThatThrownBy(() -> photoDeduper.dedupe(fileChecksumVisitor))
                 .isInstanceOf(RuntimeException.class)
                 .hasMessage("Boom!");
 

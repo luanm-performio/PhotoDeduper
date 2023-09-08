@@ -10,10 +10,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class PathWalkerTest {
+class FileChecksumVisitorTest {
 
     final List<FileMeta> allFileMetas = new ArrayList<>();
-    final PathWalker pathWalker = new PathWalker(allFileMetas::add, FileChecksum.md5());
+    final FileChecksumVisitor fileChecksumVisitor = new FileChecksumVisitor(allFileMetas::add, FileChecksum.md5());
 
     @Test
     void shouldHandleFilesSuccessfullyWhenAFolderIsVisited() throws Exception {
@@ -25,7 +25,7 @@ class PathWalkerTest {
                 "src/test/resources/test_images/sea, sand, surf/coves.jpg"
         };
 
-        Files.walkFileTree(folderPath, pathWalker);
+        Files.walkFileTree(folderPath, fileChecksumVisitor);
 
         assertThat(allFileMetas).hasSize(4)
                 .extracting(FileMeta::filePath)

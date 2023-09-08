@@ -11,7 +11,7 @@ import java.util.function.Consumer;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class PathWalker implements FileVisitor<Path> {
+public class FileChecksumVisitor implements FileVisitor<Path> {
 
     private final Consumer<FileMeta> fileMetaConsumer;
     private final FileChecksum fileChecksum;
