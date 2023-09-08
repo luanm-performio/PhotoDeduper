@@ -19,6 +19,7 @@ class PathWalkerTest {
     void shouldHandleFilesSuccessfullyWhenAFolderIsVisited() throws Exception {
         final Path folderPath = Paths.get("src/test/resources/test_images");
         final String[] expectedFiles = new String[] {
+                "src/test/resources/test_images/camping DELETE ME/coves.jpg",
                 "src/test/resources/test_images/camping DELETE ME/escape.jpg",
                 "src/test/resources/test_images/trip to the sea/s-06927.jpg",
                 "src/test/resources/test_images/sea, sand, surf/coves.jpg"
@@ -26,7 +27,7 @@ class PathWalkerTest {
 
         Files.walkFileTree(folderPath, pathWalker);
 
-        assertThat(allFileMetas).hasSize(3)
+        assertThat(allFileMetas).hasSize(4)
                 .extracting(FileMeta::filePath)
                 .containsExactlyInAnyOrder(expectedFiles);
     }
