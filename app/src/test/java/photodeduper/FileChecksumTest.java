@@ -3,7 +3,7 @@ package photodeduper;
 import java.nio.file.Paths;
 
 import org.junit.jupiter.api.Test;
-import photodeduper.exception.FileParserException;
+import photodeduper.exception.FileChecksumException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -26,7 +26,7 @@ class FileChecksumTest {
         final String filePath = "src/test/resources/test_images/trip to the sea/s-06927.tmp";
 
         assertThatThrownBy(() -> FileChecksum.md5().of(Paths.get(filePath)))
-                .isInstanceOf(FileParserException.class)
+                .isInstanceOf(FileChecksumException.class)
                 .hasMessage(filePath);
 
     }

@@ -7,7 +7,7 @@ import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import photodeduper.exception.FileParserException;
+import photodeduper.exception.FileChecksumException;
 
 @FunctionalInterface
 public interface FileChecksum {
@@ -22,7 +22,7 @@ public interface FileChecksum {
 
                 return new FileMeta(new BigInteger(1, hash).toString(16), filePath.toString());
             } catch (IOException | NoSuchAlgorithmException e) {
-                throw new FileParserException(e.getMessage());
+                throw new FileChecksumException(e.getMessage());
             }
         };
     }
